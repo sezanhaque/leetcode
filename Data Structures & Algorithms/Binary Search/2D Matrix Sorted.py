@@ -1,7 +1,7 @@
 """
-Search a 2D Matrix II
-LeetCode Problem 74
-https://leetcode.com/problems/search-a-2d-matrix/
+Search a 2D Matrix II (Sorted)
+LeetCode Problem 240
+https://leetcode.com/problems/search-a-2d-matrix-ii/
 """
 
 
@@ -19,11 +19,17 @@ def binarySearch(self, nums: list[int], target: int) -> list[int]:
     return [left, right]
 
 
-data = [[10, 20, 30, 40], [15, 25, 35, 45], [28, 29, 37, 49], [33, 34, 38, 50]]
+data = [
+    [1, 4, 7, 11, 15],
+    [2, 5, 8, 12, 19],
+    [3, 6, 9, 16, 22],
+    [10, 13, 14, 17, 24],
+    [18, 21, 23, 26, 30],
+]
 print(
     binarySearch(
         0,
         data,
-        10,
+        5,
     )
 )
