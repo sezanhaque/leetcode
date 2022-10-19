@@ -1,3 +1,9 @@
+"""
+Leetcode problem 1095
+https://leetcode.com/problems/find-in-mountain-array/
+"""
+
+
 class Solution:
     def findInMountainArray(self, target: int, mountain_arr: list[int]) -> int:
         mountainPoint = Solution.findMountainPoint(0, mountain_arr)
