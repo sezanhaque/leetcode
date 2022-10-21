@@ -3,7 +3,7 @@ def validPalindrome(self, s: str) -> bool:
         return True
     length = len(s)
     i = 0
-    while i < length // 2 and s[i] == s[length - 1 - i]:
+    while i < length >> 1 and s[i] == s[length - 1 - i]:
         i += 1
     test_1 = s[:i] + s[i + 1 :]
     test_2 = s[: length - 1 - i] + s[length - 1 - i + 1 :]
