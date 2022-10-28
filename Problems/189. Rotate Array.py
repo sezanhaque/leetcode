@@ -2,8 +2,7 @@ def rotate(self, nums: list[int], k: int) -> None:
     """
     Do not return anything, modify nums in-place instead.
     """
-    length = len(nums)
-    k = k % length
+    k = k % len(nums)
     # nums[:] = nums[length - k :] + nums[: length - k] # Or
     nums[:] = nums[-k:] + nums[:-k]
     print(nums)

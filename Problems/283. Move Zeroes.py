@@ -21,6 +21,15 @@ def moveZeroes(self, nums: list[int]) -> None:
     print(nums)
 
 
+def moveZeroes(self, nums: list[int]) -> None:
+    left = 0
+    for right in range(len(nums)):
+        if nums[right] != 0:
+            nums[left], nums[right] = nums[right], nums[left]
+            left += 1
+    print(nums)
+
+
 moveZeroes(0, [0])
 moveZeroes(0, [1, 0, 2, 0, 4, 5, 0, 3, 12])
 moveZeroes(0, [2, 1])

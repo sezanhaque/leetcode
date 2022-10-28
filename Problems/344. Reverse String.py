@@ -7,7 +7,8 @@ class Solution:
 
     def reverseString(self, s: list[str]) -> None:
         for i in range(len(s) >> 1):
-            s[i], s[-i - 1] = s[-i - 1], s[i]
+            # "~i" is same as "- i - 1"
+            s[i], s[~i] = s[~i], s[i]
         return s
 
 
