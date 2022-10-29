@@ -11,10 +11,7 @@ class Solution:
             # Replace "."
             localName = localName.replace(".", "")
 
-            # Join
-            email = localName + "@" + domainName
-
-            uniqueEmails.add(email)
+            uniqueEmails.add((localName, domainName))
 
         return len(uniqueEmails)
 
