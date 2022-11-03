@@ -9,6 +9,16 @@ class Solution:
 
         return True
 
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i = j = 0
+
+        while i < len(s) and j < len(t):
+            if s[i] == t[j]:
+                i += 1
+            j += 1
+            
+        return i == len(s)
+
 
 print(Solution.isSubsequence(0, "acb", "ahbgdc"))  # false
 print(Solution.isSubsequence(0, "abc", "ahbgdc"))  # true
