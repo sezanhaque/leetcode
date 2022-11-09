@@ -1,10 +1,14 @@
+from collections import Counter
+from math import inf
+
+
 class Solution:
     """
     Link: https://leetcode.com/explore/interview/card/leetcodes-interview-crash-course-data-structures-and-algorithms/703/arraystrings/4502/
-    
-    Sliding window is another common approach to solving problems related to arrays. 
-    A sliding window is actually implemented using two-pointers! First, let's start by looking at the concept of a sub-array. 
-    Given an array, a sub-array is just a section of the array. The elements need to be contiguous and in order. 
+
+    Sliding window is another common approach to solving problems related to arrays.
+    A sliding window is actually implemented using two-pointers! First, let's start by looking at the concept of a sub-array.
+    Given an array, a sub-array is just a section of the array. The elements need to be contiguous and in order.
     For example, with the array [1, 2, 3, 4], the sub-arrays, grouped by length are:
 
     [1], [2], [3], [4]
@@ -12,20 +16,20 @@ class Solution:
     [1, 2, 3], [2, 3, 4]
     [1, 2, 3, 4]
 
-    A sub-array can be defined by two indices, the start and end. 
-    For example, with [1, 2, 3, 4], the sub-array [2, 3] has a starting index of 1 and an ending index of 2. 
-    Let's call the starting index the left bound and the ending index the right bound. 
+    A sub-array can be defined by two indices, the start and end.
+    For example, with [1, 2, 3, 4], the sub-array [2, 3] has a starting index of 1 and an ending index of 2.
+    Let's call the starting index the left bound and the ending index the right bound.
     Another name for sub-array in this context is "window", which we will use from now on.
 
-    The idea behind the sliding window technique is to efficiently find the "best" window that fits some constraint. 
-    Usually, the problem description will define what makes a window "better" (shorter length, larger sum etc.) and the constraint. 
-    Imagine that a problem wanted the length of the longest sub-array with a sum less than or equal to k for an array with 
-    positive numbers. In this case, the constraint is sum(window) <= k, and the longer the window, the better it is. 
+    The idea behind the sliding window technique is to efficiently find the "best" window that fits some constraint.
+    Usually, the problem description will define what makes a window "better" (shorter length, larger sum etc.) and the constraint.
+    Imagine that a problem wanted the length of the longest sub-array with a sum less than or equal to k for an array with
+    positive numbers. In this case, the constraint is sum(window) <= k, and the longer the window, the better it is.
     The general algorithm behind sliding window is:
 
     Define a pointer for the left and right bound that represents the current window, usually both of them starting at 0.
     Iterate over the array with the right bound to "add" elements to the window.
-    Whenever the constraint is broken, in this example if the sum of the window exceeds k, then "remove" elements from 
+    Whenever the constraint is broken, in this example if the sum of the window exceeds k, then "remove" elements from
     the window by incrementing the left bound until the condition is satisfied again.
     Here's some pseudo-code illustrating the concept:
 
@@ -40,6 +44,7 @@ class Solution:
 
             Do some logic to update the answer
     """
+
     def findLength(nums: list[int], k: int) -> int:
         """
         Given an array of positive integers nums and an integer k,
@@ -77,6 +82,69 @@ class Solution:
 
         return ans
 
+    def findMaxSumSubArray(nums: list[int], k: int) -> int:
+        """
+        Find the max sum sub-array of a fixed size k
+        """
+        maxVal = -inf
+
+        for i in range(len(nums) - 2):
+            maxVal = max(maxVal, sum(nums[i : i + 3]))
+        return maxVal
+
+    def findMaxSumSubArray(nums: list[int], k: int) -> int:
+        # one-liner
+        return max((sum(nums[i : i + 3]) for i in range(len(nums) - 2)))
+
+    def smallestSubArray(nums: list[int], k: int) -> int:
+        """
+        Find the smallest sub-array >= k
+        """
+        ans = inf
+        for i in range(len(nums)):
+            right = i
+            currSum = 0
+
+            while right < len(nums) and currSum < k:
+                currSum = sum(nums[i : right + 1])
+                right += 1
+
+            if currSum >= k:
+                ans = min(ans, right - i)
+
+            if ans == 1:
+                # this will be the smallest sub-array so no need to calculate further
+                return ans
+        return ans
+
+    def lengthOfLongestSubstringKDistinct(s: str, k: int) -> int:
+        """
+        Suppose we have a number k and another string s,
+        We have to find the size of the longest substring that contains at most k distinct characters.
+
+        Ex: s = "AAAHHIBC", k = 2
+            ans = 5 -> "AAAHH"
+        """
+
+        count = Counter()
+        left = ans = 0
+
+        for i in range(len(s)):
+            count[s[i]] += 1
+
+            while len(count) > k:
+                if count[s[left]] == 1:
+                    del count[s[left]]
+                else:
+                    count[s[left]] -= 1
+                left += 1
+            ans = max(ans, i - left + 1)
+
+        return ans
+
 
 print(Solution.findLength([3, 1, 2, 7, 4, 2, 1, 1, 5], 8))
 print(Solution.findBinaryLength("1101100111"))
+print(Solution.findMaxSumSubArray([4, 2, 1, 7, 8, 1, 2, 8, 1, 0], 3))
+print(Solution.smallestSubArray([4, 2, 2, 7, 1, 2], 8))
+print(Solution.lengthOfLongestSubstringKDistinct("AAAHHIBC", 2))
