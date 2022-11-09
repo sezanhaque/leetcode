@@ -6,11 +6,12 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
+        
+        # Premium
+
         nums.sort()
-        print(nums)
         half = math.ceil(len(nums) / 2)
         nums[::2], nums[1::2] = nums[:half][::-1], nums[half:][::-1]
-        print(nums)
 
 
 print(Solution.wiggleSort(0, [1, 5, 1, 1, 6, 4]))

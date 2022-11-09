@@ -8,6 +8,8 @@ class Solution:
             Even places are always smaller or equal than the previous one
         """
 
+        # Premium
+
         for i in range(1, len(nums)):
             if ((i & 1) and nums[i] <= nums[i - 1]) or (
                 (not i & 1) and nums[i] >= nums[i - 1]
