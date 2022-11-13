@@ -12,7 +12,7 @@ class Solution:
             return 0
 
         # Separate out the start and the end timings and sort them individually.
-        start = sorted((i[0] for i in intervals))
+        start = sorted(i[0] for i in intervals)
         end = sorted(i[1] for i in intervals)
 
         # The two pointers in the algorithm: e_ptr and s_ptr.
@@ -36,7 +36,7 @@ class Solution:
     def minMeetingRooms(self, intervals: list[list[int]]) -> int:
         # NeetCode
 
-        start = sorted((i[0] for i in intervals))
+        start = sorted(i[0] for i in intervals)
         end = sorted(i[1] for i in intervals)
 
         res, count = 0, 0
