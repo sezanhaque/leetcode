@@ -18,7 +18,11 @@ def removeDuplicates(self, nums: list[int]) -> int:
     """
     Using SET data type to get the unique elements and then sort them
     """
-    nums[:] = sorted(set(nums))
+    return len(sorted(set(nums)))
+
+
+def removeDuplicates(self, nums: list[int]) -> int:
+    nums[:] = (val for idx, val in enumerate(nums) if idx == 0 or nums[idx - 1] != val)
     return len(nums)
 
 
