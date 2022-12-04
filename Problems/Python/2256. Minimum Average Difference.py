@@ -1,36 +1,54 @@
 from math import inf
 
+
 class Solution:
     def minimumAverageDifference(self, nums: list[int]) -> int:
-        totalSum = sum(nums)
+        # fast
         length = len(nums)
-        leftSum = leftIndexSum = 0
-        rightSum = minIndex = 0
+        rightSum = sum(nums)
+        leftSum = index = 0
         minAvg = inf
 
-        for idx, val in enumerate(nums):
-            leftSum += val
-            leftIndexSum += 1
+        for idx in range(length):
+            leftSum += nums[idx]
+            rightSum -= nums[idx]
 
-            rightSum = totalSum - leftSum
-            rightIndexSum = length - leftIndexSum
+            leftAvg = leftSum // (idx + 1)
 
-            if rightSum != 0 and rightIndexSum != 0:
-                avg = abs((leftSum // leftIndexSum) - (rightSum // rightIndexSum))
-                if avg < minAvg:
-                    minAvg = avg
-                    minIndex = idx
+            if idx == length - 1:
+                rightAvg = 0
             else:
-                avg = abs((leftSum // leftIndexSum))
-                if avg < minAvg:
-                    minAvg = avg
-                    minIndex = idx
-        
-        return minIndex
+                rightAvg = rightSum // (length - idx - 1)
 
+            avg = abs(leftAvg - rightAvg)
 
+            if avg < minAvg:
+                minAvg = avg
+                index = idx
+
+        return index
+
+    def minimumAverageDifference(self, nums: list[int]) -> int:
+        length = len(nums)
+        prefix = index = 0
+        suffix = sum(nums)
+        minAvg = inf
+
+        for idx in range(length):
+            prefix += nums[idx]
+            suffix -= nums[idx]
+
+            avg = abs(
+                (prefix // (idx + 1)) - (suffix // (length - idx - 1 or 1))
+            )  # or used to get 1 if len - idx - 1 is 0
+
+            if avg < minAvg:
+                minAvg = avg
+                index = idx
+
+        return index
 
 
 print(Solution.minimumAverageDifference(0, [4, 2, 0]))
-print(Solution.minimumAverageDifference(0, [2,5,3,9,5,3]))
+print(Solution.minimumAverageDifference(0, [2, 5, 3, 9, 5, 3]))
 print(Solution.minimumAverageDifference(0, [0]))
