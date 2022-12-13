@@ -1,3 +1,4 @@
+from functools import cache
 import math
 
 
@@ -42,6 +43,17 @@ def fibonacciWithRecursion(num: int) -> int:
     seen[num] = fibonacciWithRecursion(num - 1) + fibonacciWithRecursion(num - 2)
     return seen[num]
 
+# "@cache" Caching return function in memory so that we don't have to execute same things again
+# Else we can use previous way to store the result in hashmap
+
+@cache
+def fibonacciWithRecursion(num: int) -> int:
+    if num < 0:
+        print("Incorrect input")
+        return
+    elif num < 2:
+        return num
+    return fibonacciWithRecursion(num - 1) + fibonacciWithRecursion(num - 2)
 
 fibArray = [0, 1]
 
@@ -84,13 +96,15 @@ def goldenRatio(num: int) -> int:
     return int((math.pow(1.6180, num)) / math.sqrt(5))
 
 
+
+
 if __name__ == "__main__":
     num = 50
     # print(fibonacci(num))
-    # print(fibonacciWithRecursion(num))
+    print(fibonacciWithRecursion(num))
     # print(fibonacciWithDP(num), fibArray)
 
     # Using golden ratio formula
     # for i in range(num + 1):
     #     print(goldenRatio(i))
-    print(goldenRatio(num))
+    # print(goldenRatio(num))

@@ -1,3 +1,6 @@
+from functools import cache
+
+
 class Solution:
     def fib(self, n: int) -> int:
         self.seen = {}
@@ -18,6 +21,12 @@ class Solution:
         golden_ratio = (1 + 5 ** 0.5) / 2
         return int((golden_ratio ** n + 1) / 5 ** 0.5)
 
-
+    @cache
+    def fib(self, num: int) -> int:
+        if num < 0:
+            return
+        elif num < 2:
+            return num
+        return self.fib(num - 1) + self.fib(num - 2)
 
 print(Solution.fib(0, 29))
