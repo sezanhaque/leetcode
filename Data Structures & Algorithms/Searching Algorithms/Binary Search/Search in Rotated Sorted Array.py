@@ -39,7 +39,7 @@ def search(self, nums: list[int], target: int) -> int:
 
         # Left position
         if nums[left] <= nums[mid]:
-            # if target is between start & mid, make right to (mid -1)
+            # if target is between start & mid, make right to (mid - 1)
             if nums[left] <= target <= nums[mid]:
                 right = mid - 1
             else:
