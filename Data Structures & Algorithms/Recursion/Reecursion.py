@@ -1,4 +1,34 @@
+from functools import cache
 import math
+
+"""
+It is used in cases when we have recursion like dfs, 
+which is not fast enough, this will make it almost iterative. 
+
+To use it use @bootstrap word before function. 
+Also, instead of return in function use yield.
+"""
+from types import GeneratorType
+
+
+def bootstrap(f, stack=[]):
+    def wrappedfunc(*args, **kwargs):
+        if stack:
+            return f(*args, **kwargs)
+        else:
+            to = f(*args, **kwargs)
+            while True:
+                if type(to) is GeneratorType:
+                    stack.append(to)
+                    to = next(to)
+                else:
+                    stack.pop()
+                    if not stack:
+                        break
+                    to = stack[-1].send(to)
+            return to
+
+    return wrappedfunc
 
 
 def print_n_to_one(n: int) -> None:

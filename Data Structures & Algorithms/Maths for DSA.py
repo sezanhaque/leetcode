@@ -1,3 +1,6 @@
+import math
+
+
 def isPrime(num: int) -> bool:
     """
     A Prime number is only divisible by itself and 1.
@@ -35,8 +38,98 @@ def SieveOfEratosthenes(num: int) -> None:
 
 
 # print("*" * 20 + "Sieve Of Eratosthenes" + "*" * 20)
-# print(SieveOfEratosthenes(30))
+# print(SieveOfEratosthenes(10))
 # print("*" * 20 + "Sieve Of Eratosthenes" + "*" * 20 + "\n\n")
+
+
+def primeFactors(num: int) -> list[int]:
+    """
+    Prime factor of a number
+    """
+    res = []
+    c = 2
+    while num > 1:
+        if num % c == 0:
+            res.append(c)
+            num = num // c
+        else:
+            c = c + 1
+    return res
+
+
+# print("*" * 20 + "Prime Factors of a number" + "*" * 20)
+# print(primeFactors(100))
+# print("*" * 20 + "Prime Factors of a number" + "*" * 20 + "\n\n")
+
+
+class Prime_Factor_Sieve_Of_Eratosthenes:
+    """
+    Prime Factorization using Sieve O(log n) for multiple queries
+    """
+
+    def __init__(self) -> None:
+        self.max_num = 10**5 + 1
+
+        # stores the smallest prime factor
+        # for every number
+        self.spf = [0] * self.max_num
+
+    # Calculating SPF (The smallest Prime Factor)
+    # for every number till max_num.
+    # Time Complexity : O(n log)
+    def sieve(self):
+        self.spf[1] = 1
+        for i in range(2, self.max_num):
+
+            # marking the smallest prime factor
+            # for every number to be itself.
+            self.spf[i] = i
+
+        # separately marking spf for
+        # every even number as 2
+        for i in range(4, self.max_num, 2):
+            self.spf[i] = 2
+
+        for i in range(3, math.ceil(math.sqrt(self.max_num))):
+
+            # checking if i is prime
+            if self.spf[i] == i:
+
+                # marking SPF for all numbers
+                # divisible by i
+                for j in range(i * i, self.max_num, i):
+
+                    # marking spf[j] if it is
+                    # not previously marked
+                    if self.spf[j] == j:
+                        self.spf[j] = i
+
+    # A O(log n) function returning prime
+    # factorization by dividing by smallest
+    # prime factor at every step
+    def getFactorization(self, num: int) -> list[int]:
+        res = []
+        while num != 1:
+            res.append(self.spf[num])
+            num = num // self.spf[num]
+
+        return res
+
+
+# print(
+#     "*" * 20
+#     + "Prime Factorization using Sieve O(log n) for multiple queries"
+#     + "*" * 20
+# )
+# initialize = Prime_Factor_Sieve_Of_Eratosthenes()
+# initialize.sieve()
+# print(initialize.getFactorization(100000))
+# print(
+#     "*" * 20
+#     + "Prime Factorization using Sieve O(log n) for multiple queries"
+#     + "*" * 20
+#     + "\n\n"
+# )
 
 
 def reverseNumber(num: int) -> int:
@@ -69,15 +162,16 @@ def gcd(a: int, b: int) -> int:
     return gcd(b % a, a)
 
 
-print("*" * 20 + "GCD | HCF" + "*" * 20)
-print(gcd(4, 17))
-print("*" * 20 + "GCD | HCF" + "*" * 20 + "\n\n")
+# print("*" * 20 + "GCD | HCF" + "*" * 20)
+# print(gcd(4, 17))
+# print("*" * 20 + "GCD | HCF" + "*" * 20 + "\n\n")
+
 
 def lcm(a: int, b: int) -> int:
     """
-    LCM is the short form for “Least Common Multiple.” 
-    
-    The least common multiple is defined as the smallest 
+    LCM is the short form for “Least Common Multiple.”
+
+    The least common multiple is defined as the smallest
     multiple that two or more numbers have in common.
 
     LCM of a, b = (a * b) // GCD of a, b
@@ -85,9 +179,9 @@ def lcm(a: int, b: int) -> int:
     Therefore, we also can say that
     Multiplication of two numbers are multiplication of their LCM & GCD.
     """
-    return (a*b) // gcd(a, b)
+    return (a * b) // gcd(a, b)
 
 
-print("*" * 20 + "Least common multiple" + "*" * 20)
-print(lcm(4, 17))
-print("*" * 20 + "Least common multiple" + "*" * 20 + "\n\n")
+# print("*" * 20 + "Least common multiple" + "*" * 20)
+# print(lcm(4, 17))
+# print("*" * 20 + "Least common multiple" + "*" * 20 + "\n\n")
