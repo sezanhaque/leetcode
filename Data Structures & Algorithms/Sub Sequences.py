@@ -137,5 +137,63 @@ class LongestPalindromicSubsequence:
         return max(self.generate(left + 1, right), self.generate(left, right - 1))
 
 
-obj = LongestPalindromicSubsequence("bbbab")
-print(obj.get())
+# obj = LongestPalindromicSubsequence("bbbab")
+# print(obj.get())
+
+
+class CountPalindromicSubsequences:
+    """
+    Leet Code Problem:  730 Count Different Palindromic Subsequences
+    Link:   https://leetcode.com/problems/count-different-palindromic-subsequences/
+
+    Problem:
+        Given a string s, return the number of different non-empty palindromic subsequences in s.
+
+    Solution:
+
+        1.  We traverse within a range, starting from 0 to end.
+
+        2.  We will check if from current start to end if there is
+            any "abcd" contains.
+            If contains then we will get the range of them.
+
+        3.  We can get many palindrome from the range if
+            all condition passes.
+
+    """
+
+    def get(self, s: str) -> int:
+        MOD = 10 ** 9 + 7
+        return self.generate(s, 0, len(s)) % MOD
+
+    @cache
+    def generate(self, s: str, start: int, end: int) -> int:
+        # If start == end, it means we have exceeded our limit.
+        if start >= end:
+            return 0
+
+        count = 0
+
+        for char in "abcd":
+            # get the left and right index of char from string
+            left, right = s.find(char, start, end), s.rfind(char, start, end)
+
+            # if these both are -1, it means there is no char in string
+            if left == -1 or right == -1:
+                continue
+
+            # If left == right it means we are pointing same char
+            # So we add 1
+            if left == right:
+                count += 1
+
+            # Else we have found 2 char
+            # So we add 2 and call next chars
+            else:
+                count += 2 + self.generate(s, left + 1, right)
+
+        return count
+
+
+obj = CountPalindromicSubsequences()
+print(obj.get("cbcb"))  # 6
