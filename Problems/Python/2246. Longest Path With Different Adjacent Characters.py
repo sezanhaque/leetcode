@@ -36,21 +36,6 @@ class Solution:
                 elif longestChainFromChild > secondLongestChain:
                     secondLongestChain = longestChainFromChild
 
-            # # get max chain between 2 subtree of current node including the node.
-            # maxBetweenTwoSubTree = max(longestChain, secondLongestChain) + 1
-            #
-            # # If only current node is available
-            # onlyCurrentNode = 1
-            #
-            # # If we get a rounded subtree with max chain
-            # roundedSubTree = longestChain + secondLongestChain + 1
-            #
-            # res = max(res, maxBetweenTwoSubTree, onlyCurrentNode, roundedSubTree)
-            #
-            # # return max between these two
-            # # because we won't return a rounded subtree
-            # return max(maxBetweenTwoSubTree, roundedSubTree)
-
             # checking max value between res and current rounded subtree
             # and store it to res
             res = max(res, longestChain + secondLongestChain + 1)

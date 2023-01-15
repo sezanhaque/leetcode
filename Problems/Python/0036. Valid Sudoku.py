@@ -1,63 +1,54 @@
-import collections
+from collections import defaultdict
+from itertools import product
 
 
 class Solution:
     def isValidSudoku(self, board: list[list[str]]) -> bool:
-        cols, rows, squares = (
-            collections.defaultdict(set),
-            collections.defaultdict(set),
-            collections.defaultdict(set),
-        )
+        rows, cols, boxes = defaultdict(set), defaultdict(set), defaultdict(set)
 
-        for r in range(9):
-            for c in range(9):
-                if board[r][c] == ".":
-                    continue
+        for row, col in product(range(9), range(9)):
+            if board[row][col] == ".":
+                continue
 
-                elif (
-                    board[r][c] in rows[r]
-                    or board[r][c] in cols[c]
-                    or board[r][c] in squares[(r // 3, c // 3)]
-                ):
-                    return False
+            elif (
+                    board[row][col] in rows[row]
+                    or board[row][col] in cols[col]
+                    or board[row][col] in boxes[(row // 3, col // 3)]
+            ):
+                return False
 
-                cols[c].add(board[r][c])
-                rows[r].add(board[r][c])
-                squares[(r // 3, c // 3)].add(board[r][c])
+            cols[col].add(board[row][col])
+            rows[row].add(board[row][col])
+            boxes[(row // 3, col // 3)].add(board[row][col])
 
         return True
 
 
-print(
-    Solution.isValidSudoku(
-        0,
-        [
-            ["5", "3", ".", ".", "7", ".", ".", ".", "."],
-            ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-            [".", "9", "8", ".", ".", ".", ".", "6", "."],
-            ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-            ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-            ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-            [".", "6", ".", ".", ".", ".", "2", "8", "."],
-            [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-            [".", ".", ".", ".", "8", ".", ".", "7", "9"],
-        ],
-    )
-)
+obj = Solution()
+board = [
+    ["5", "3", ".", ".", "7", ".", ".", ".", "."],
+    ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+    [".", "9", "8", ".", ".", ".", ".", "6", "."],
+    ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+    ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+    ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+    [".", "6", ".", ".", ".", ".", "2", "8", "."],
+    [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+    [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+]
 
-print(
-    Solution.isValidSudoku(
-        0,
-        [
-            ["8", "3", ".", ".", "7", ".", ".", ".", "."],
-            ["6", ".", ".", "1", "9", "5", ".", ".", "."],
-            [".", "9", "8", ".", ".", ".", ".", "6", "."],
-            ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
-            ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
-            ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
-            [".", "6", ".", ".", ".", ".", "2", "8", "."],
-            [".", ".", ".", "4", "1", "9", ".", ".", "5"],
-            [".", ".", ".", ".", "8", ".", ".", "7", "9"],
-        ],
-    )
-)
+print(obj.isValidSudoku(board))
+
+board2 = [
+    ["8", "3", ".", ".", "7", ".", ".", ".", "."],
+    ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+    [".", "9", "8", ".", ".", ".", ".", "6", "."],
+    ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+    ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+    ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+    [".", "6", ".", ".", ".", ".", "2", "8", "."],
+    [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+    [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+]
+
+print(obj.isValidSudoku(board2))
