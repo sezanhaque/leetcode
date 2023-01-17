@@ -15,14 +15,15 @@ class Node:
 
 class LinkedList:
     def __init__(self, nodes=None) -> None:
-        self.head = None
-        self.tail = None
+        self.head: Node = None
+        self.tail: Node = None
         self.size = 0
 
         # quickly create a linked list
         if nodes:
             node = Node(data=nodes.pop(0))
             self.head = node
+            self.tail = node
             self.size += 1
 
             for element in nodes:
@@ -31,6 +32,8 @@ class LinkedList:
                 self.size += 1
 
             self.tail = node
+            # make circle
+            self.tail.next = self.head
         else:
             raise Exception(MESSAGE.empty.value)
 
@@ -42,7 +45,11 @@ class LinkedList:
         self.isEmpty()
 
         node: Node = self.head
-        while node is not None:
+
+        yield node
+        node = node.next
+
+        while node is not self.head:
             yield node
             node = node.next
 
@@ -53,15 +60,16 @@ class LinkedList:
         """
         self.isEmpty()
 
-        nodes = []
-
-        # node: Node = self.head
         # with while loop
-        # while node is not None:
+        # node: Node = self.head
+        # nodes = [node.data]
+        # node = node.next
+        # while node is not self.head:
         #     nodes.append(node.data)
         #     node = node.next
 
         # or for loop
+        nodes = []
         for node in self:
             nodes.append(node.data)
 
@@ -75,15 +83,12 @@ class LinkedList:
         self.isEmpty()
 
         node: Node = self.head
-        nodes = []
+        nodes = [node.data]
+        node = node.next
 
-        # while node is not None:
-        #     nodes.append(node.data)
-        #     node = node.next
-
-        for node in self:
+        while node is not self.head:
             nodes.append(node.data)
-
+            node = node.next
         nodes.append("None")
         print(" -> ".join(nodes))
 
@@ -100,14 +105,9 @@ class LinkedList:
         """
         Insert a value at the beginning of a linked list
         """
-        node = Node(val, self.head)
-        # node.next = self.head
+        node = Node(val, next=self.head)
         self.head = node
-
-        # check if tail is null
-        # if so then add tail as head
-        if self.tail is None:
-            self.tail = self.head
+        self.tail.next = node
 
         self.size += 1
 
@@ -121,7 +121,7 @@ class LinkedList:
         if self.head is None:
             return self.insertFirst(val)
 
-        node = Node(val)
+        node = Node(val, next=self.head)
         # the node which is in the tail,
         # make the new node as its next node
         self.tail.next = node
@@ -144,6 +144,9 @@ class LinkedList:
         newNode = Node(val, next=nodeAfter.next)
         nodeAfter.next = newNode
 
+        if nodeAfter == self.tail:
+            self.tail = newNode
+
         self.size += 1
 
     def addFirst(self, node: Node):
@@ -152,11 +155,7 @@ class LinkedList:
         """
         node.next = self.head
         self.head = node
-
-        # check if tail is null
-        # if so then add tail as head
-        if self.tail is None:
-            self.tail = self.head
+        self.tail.next = node
 
         self.size += 1
 
@@ -170,6 +169,7 @@ class LinkedList:
         if self.head is None:
             return self.addFirst(node)
 
+        node.next = self.head
         # the node which is in the tail,
         # make the new node as its next node
         self.tail.next = node
@@ -235,6 +235,7 @@ class LinkedList:
         # remove head
         if idx == 0:
             self.head = self.head.next
+            self.tail.next = self.head
             self.size -= 1
             return
 
@@ -259,6 +260,7 @@ class LinkedList:
         # if target data is in head
         if self.head.data == targetNodeData:
             self.head = self.head.next
+            self.tail.next = self.head
 
             self.size -= 1
             return
@@ -275,10 +277,6 @@ class LinkedList:
             prevNode = node
 
         raise Exception(MESSAGE.targetDataNotFound.value % targetNodeData)
-
-    # __________ Finishing Deletion of a linked list __________
-
-    # __________ Starting Get element of a linked list __________
 
     def getIdx(self, idx: int) -> Node:
         """
@@ -315,9 +313,9 @@ class LinkedList:
         fast: Node = self.head
         slow: Node = self.head
 
-        while fast.next is not None:
+        while fast.next is not self.head:
             fast = fast.next
-            if fast.next is not None:
+            if fast.next is not self.head:
                 fast = fast.next
                 slow = slow.next
 
@@ -329,92 +327,33 @@ class LinkedList:
 
         return slow
 
-    # __________ Finishing Get element of a linked list __________
-
-    def convertToList(self) -> list:
-        """
-        Convert a linked list to an array / list
-        """
-        self.isEmpty()
-        return [node.data for node in self]
-
-    def removeDuplicates(self):
-        """
-        Remove duplicates from a sorted linked list
-
-        LeetCode: 83. Remove Duplicates from Sorted List
-        Link: https://leetcode.com/problems/remove-duplicates-from-sorted-list/
-        """
-        node = self.head
-
-        while node.next:
-            if node.data == node.next.data:
-                node.next = node.next.next
-                if self.tail.data == node.data:
-                    self.tail = node
-                self.size -= 1
-            else:
-                node = node.next
-
-    def reverse(self):
-        """
-        Reverse a linked list
-        """
-        if self.size < 2:
-            return
-
-        prev: Node = None
-        curr: Node = self.head
-
-        while curr:
-            next = curr.next
-            curr.next = prev
-            prev = curr
-            curr = next
-
-        self.head = prev
-
 
 if __name__ == "__main__":
     Llist = LinkedList(["a", "b", "d", "e"])
 
     # __________ Starting Insertion of a linked list __________
     # print(Llist.size)
-    Llist.insertAfter("c", 3)
-    # Llist.insertLast("f")
+    # Llist.insertFirst("0")
+    Llist.insertLast("f")
+    Llist.insertAfter("c", 2)
+    Llist.addFirst(Node("0"))
+    Llist.addLast(Node("g"))
+    # Llist.addAfter("g", Node("h"))
+    # Llist.addBefore("g", Node("i"))
     # Llist.insertLast("g")
     # Llist.insertLast("i")
     # Llist.insertLast("j")
-    # Llist.addAfter("g", Node("h"))
     # Llist.addAfter("j", Node("k"))
-    # Llist.addLast(Node("l"))
     # Llist.addLast(Node("m"))
     # Llist.addLast(Node("m"))
-    # Llist.addBefore("m", Node("g"))
     # Llist.addAfter("m", Node("n"))
     # __________ Finishing Insertion of a linked list __________
 
-    # __________ Starting Get element of a linked list __________
-    # print(Llist.getIdx(10))
-    # print(Llist.getNode("a"))
-    # print(Llist.getMiddleElement())
-    # __________ Finishing Get element of a linked list __________
-
-    # Llist.deleteNode("m")
-    print(Llist.size)
-    Llist.deleteIdx(4)
-    # print(Llist.tail)
-    # Llist.removeDuplicates()
-    Llist.print()
-    # print(Llist.__repr__())
-    Llist.reverse()
-    print(f"Head: {Llist.head}\t Tail: {Llist.tail}\t Size: {Llist.size}")
+    # Llist.print()
+    # Llist.deleteIdx(8)
+    Llist.deleteNode("b")
+    print(f"Head: {Llist.head}\t Tail: {Llist.tail}\t Tail.next: {Llist.tail.next}\t Size: {Llist.size}")
     print(Llist.__repr__())
-    # print(Llist.convertToList())
-
-    # iterate over linked list
-    # as we use __iter__ function
-    # it will iterate over linked list
-    # and give us the value
+    # print(Llist.getMiddleElement())
     # for node in Llist:
     #     print(node, end=" ")

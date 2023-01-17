@@ -1,12 +1,4 @@
-import enum
-
-
-class MESSAGE(str, enum.Enum):
-    empty = "Linked list is empty."
-    notPresent = " index is not present in the linked list."
-    outOfBound = "Index is out of bound."
-    targetIdxNotFound = "Node with idx '%s' not found"
-    targetDataNotFound = "Node with data '%s' not found"
+from Messages import MESSAGE
 
 
 class Node:
@@ -29,7 +21,7 @@ class LinkedList:
         self.size = 0
 
         # quickly create a linked list
-        if nodes is not None:
+        if nodes:
             node = Node(data=nodes.pop(0))
             self.head = node
             self.size += 1
@@ -40,6 +32,8 @@ class LinkedList:
                 self.size += 1
 
             self.tail = node
+        else:
+            raise Exception(MESSAGE.empty.value)
 
     def __iter__(self):
         """
@@ -60,12 +54,18 @@ class LinkedList:
         """
         self.isEmpty()
 
-        node: Node = self.head
         nodes = []
 
-        while node is not None:
+        # with while loop
+        # node: Node = self.head
+        # while node is not None:
+        #     nodes.append(node.data)
+        #     node = node.next
+
+        # or for loop
+        for node in self:
             nodes.append(node.data)
-            node = node.next
+
         nodes.append("None")
         return " -> ".join(nodes)
 
@@ -196,7 +196,6 @@ class LinkedList:
             self.tail = newNode
 
         self.size += 1
-        return
 
     def addBefore(self, targetNodeData, newNode: Node):
         """
@@ -216,7 +215,6 @@ class LinkedList:
         nodeBefore.prev = newNode
 
         self.size += 1
-        return
 
     # __________ Finishing Insertion of a linked list __________
 
@@ -227,6 +225,11 @@ class LinkedList:
         Delete the given idx of a linked list
         """
         self.isEmpty()
+
+        # if the idx is not present
+        # then we don't have to delete anything
+        if idx >= self.size:
+            raise Exception(f"{idx}" + MESSAGE.notPresent.value)
 
         node: Node = self.head
 
@@ -251,7 +254,6 @@ class LinkedList:
             self.tail = node.prev
 
         self.size -= 1
-        return
 
     def deleteNode(self, targetNodeData):
         """
@@ -259,6 +261,7 @@ class LinkedList:
         """
         self.isEmpty()
 
+        # if target data is in head
         if self.head.data == targetNodeData:
             self.head = self.head.next
             self.head.prev = None
@@ -278,7 +281,6 @@ class LinkedList:
             self.tail = node.prev
 
         self.size -= 1
-        return
 
     # __________ Finishing Deletion of a linked list __________
 
@@ -367,8 +369,9 @@ if __name__ == "__main__":
     # print(Llist.getMiddleElement())
     # __________ Finishing Get element of a linked list __________
 
-    # Llist.deleteIdx(7)
-    Llist.deleteNode("a")
+    # print(Llist.size)
+    # Llist.deleteIdx(9)
+    # Llist.deleteNode("a")
     # print(Llist.tail)
     print(Llist.print())
     # Llist.removeDuplicates()
