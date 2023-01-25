@@ -146,6 +146,32 @@ class LinkedList:
 
         self.size += 1
 
+    def insertRecursively(self, val, currNode: Node, idx: int):
+        """
+        Insert the value at the given index recursively
+        """
+        if idx > self.size:
+            raise Exception(MESSAGE.outOfBound.value)
+
+        # if our head is None or index is 0
+        # then we should add the value to the head
+        if self.head is None or idx == 0:
+            return self.insertFirst(val)
+
+        if idx == 1:
+            newNode = Node(val, next=currNode.next)
+            currNode.next = newNode
+
+            # if newNode is the last node
+            # then update our tail
+            if newNode.next is None:
+                self.tail = newNode
+
+            self.size += 1
+            return newNode
+        else:
+            return self.insertRecursively(val, currNode.next, idx - 1)
+
     def addFirst(self, node: Node):
         """
         Add a node to the head of a linked list.
@@ -365,6 +391,7 @@ class LinkedList:
 
         prev: Node = None
         curr: Node = self.head
+        self.tail = curr
 
         while curr:
             next = curr.next
@@ -381,6 +408,7 @@ if __name__ == "__main__":
     # __________ Starting Insertion of a linked list __________
     # print(Llist.size)
     Llist.insertAfter("c", 3)
+    Llist.insertRecursively("f", Llist.head, 5)
     # Llist.insertLast("f")
     # Llist.insertLast("g")
     # Llist.insertLast("i")
@@ -402,7 +430,7 @@ if __name__ == "__main__":
 
     # Llist.deleteNode("m")
     print(Llist.size)
-    Llist.deleteIdx(4)
+    # Llist.deleteIdx(4)
     # print(Llist.tail)
     # Llist.removeDuplicates()
     Llist.print()
