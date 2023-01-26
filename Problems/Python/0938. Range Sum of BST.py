@@ -1,4 +1,8 @@
-# Definition for a binary tree node.
+from typing import Optional
+
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -22,10 +26,12 @@ class Solution:
 
         # The current value is in the range, so return the sum of its left, right and own value
         return (
-            root.val
-            + self.rangeSumBST(root.left, low, high)
-            + self.rangeSumBST(root.right, low, high)
+                root.val
+                + self.rangeSumBST(root.left, low, high)
+                + self.rangeSumBST(root.right, low, high)
         )
 
 
-print(Solution.rangeSumBST(0, [10, 5, 15, 3, 7, None, 18], 7, 15))
+root = [10, 5, 15, 3, 7, None, 18]
+obj = Solution()
+print(obj.rangeSumBST(BinaryTree(root).root_node, 7, 15))

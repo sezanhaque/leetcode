@@ -1,4 +1,4 @@
-from Messages import MESSAGE
+from Data_Structures_Algorithms.Helper.Messages import MESSAGE
 
 
 class Node:

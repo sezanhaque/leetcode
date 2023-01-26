@@ -1,6 +1,8 @@
 # Definition for a binary tree node.
 from typing import Optional, List
 
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -10,6 +12,11 @@ class TreeNode:
 
 
 class Solution:
+    """
+    In preorder, the order should be
+        root -> left -> right
+    """
+
     def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         res = []
 
@@ -25,3 +32,12 @@ class Solution:
         DFS(root)
 
         return res
+
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        return [] if root is None else [root.val] + self.preorderTraversal(root.left) + self.preorderTraversal(
+            root.right)
+
+
+root = [1, None, 2, 3]
+obj = Solution()
+print(obj.preorderTraversal(BinaryTree(root).root_node))

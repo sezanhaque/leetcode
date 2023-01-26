@@ -1,6 +1,8 @@
 # Definition for a binary tree node.
 from typing import Optional
 
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
 
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
@@ -24,3 +26,8 @@ class Solution:
 
         # traverse from left to right
         return self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
+
+
+p, q = [1, 2, 3], [1, 2, 3]
+obj = Solution()
+print(obj.isSameTree(BinaryTree(p).root_node, BinaryTree(q).root_node))

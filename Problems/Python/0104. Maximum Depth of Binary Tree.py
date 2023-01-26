@@ -1,8 +1,9 @@
 from collections import deque
 from typing import Optional
 
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
 
-# Definition for a binary tree node.
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -34,3 +35,8 @@ class Solution:
             level += 1
 
         return level
+
+
+root = [3, 9, 20, None, None, 15, 7]
+obj = Solution()
+print(obj.maxDepth(BinaryTree(root).root_node))

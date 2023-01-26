@@ -1,5 +1,8 @@
 # Definition for a binary tree node.
 from math import inf
+from typing import Optional
+
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
 
 
 class TreeNode:
@@ -23,18 +26,18 @@ class Solution:
 
         We need to find the Maximum Absolute Difference (MAB) |a - b| where a is an ancestor of b.
 
-        The MAB for a given ancestor a can be either a - minChild or maxChild - a and we will
+        The MAB for a given ancestor a can be either a - minChild or maxChild - a, and we will
         consider the maximum amongst it. Taking absolute difference between any other child value
         would always give a lesser value. So, we solve this problem recursively using DFS as follows -
 
-        Recurse the left and right subtree and find the minimum and maximum value of child in both these subtree.
+        Recurse the left and right subtree and find the minimum and maximum value of child in both these subtrees.
         Let curMin be minimum of all children and curMax be maximum of all children. The final ans will be updated
         as max of ans, a - curMin and curMax - a, where a is current root's value
 
-        Finally the recursive call will return the minimum and maximum value amongst all child nodes including
+        Finally, the recursive call will return the minimum and maximum value amongst all child nodes including
         root to the above level.
 
-        In this approach, since we are first recursing down the subtree and then updating ans by considering
+        In this approach, since we are first recurring down the subtree and then updating ans by considering
         the root's value, it can be said as a Post-order Bottom-up DFS approach.
 
         In the below code, I have updated curMin & curMax by also taking root's value. It just avoids writing
@@ -114,3 +117,8 @@ class Solution:
             self.maxAncestorDiff(root.left, curMin, curMax),
             self.maxAncestorDiff(root.right, curMin, curMax),
         )
+
+
+root = [8, 3, 10, 1, 6, None, 14, None, None, 4, 7, 13]
+obj = Solution()
+print(obj.maxAncestorDiff(BinaryTree(root).root_node))  # 7

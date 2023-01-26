@@ -1,4 +1,7 @@
-# Definition for a binary tree node.
+from typing import Optional, List
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -7,8 +10,10 @@ class TreeNode:
 
 
 class Solution:
-    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> list[list[int]]:
+    def __init__(self):
         self.res = []
+
+    def pathSum(self, root: Optional[TreeNode], targetSum: int) -> list[list[int]]:
         self.findPath(root, targetSum, [])
         return self.res
 
@@ -27,3 +32,10 @@ class Solution:
         targetSum -= root.val
         self.findPath(root.left, targetSum, arr[:])
         self.findPath(root.right, targetSum, arr[:])
+
+
+if __name__ == "__main__":
+    root = [5, 4, 8, 11, None, 13, 4, 7, 2, None, None, 5, 1]
+    targetSum = 22
+    obj = Solution()
+    print(obj.pathSum(BinaryTree(root).root_node, targetSum))

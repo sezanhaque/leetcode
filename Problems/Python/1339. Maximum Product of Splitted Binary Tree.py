@@ -1,4 +1,8 @@
-# Definition for a binary tree node.
+from typing import Optional
+
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -25,4 +29,9 @@ class Solution:
         treeSum = totalSum(root)
         totalSum(root)
 
-        return self.maxProd % (10**9 + 7)
+        return self.maxProd % (10 ** 9 + 7)
+
+
+root = [1, 2, 3, 4, 5, 6]
+obj = Solution()
+print(obj.maxProduct(BinaryTree(root).root_node))

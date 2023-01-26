@@ -1,4 +1,9 @@
 # Definition for a binary tree node.
+from typing import Optional
+
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
+
+
 class TreeNode:
     def __init__(self, val=0, left=None, right=None):
         self.val = val
@@ -21,3 +26,9 @@ class Solution:
         return self.hasPathSum(root.left, targetSum) or self.hasPathSum(
             root.right, targetSum
         )
+
+
+root = [5, 4, 8, 11, None, 13, 4, 7, 2, None, None, None, 1]
+targetSum = 22
+obj = Solution()
+print(obj.hasPathSum(BinaryTree(root).root_node, targetSum))
