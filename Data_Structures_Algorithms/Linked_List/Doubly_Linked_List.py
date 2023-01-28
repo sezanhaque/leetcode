@@ -83,7 +83,7 @@ class LinkedList:
             node = node.next
         print("None")
 
-        print("Reversed Linked List:")
+        print("Reversed Linked_List:")
         while last:
             print(last.data + " -> ", end="")
             last = last.prev

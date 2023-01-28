@@ -35,7 +35,7 @@ class Solution:
         """
         Two Pointers approach
 
-        We will initialize two pointers which is pointing to head of each Linked List.
+        We will initialize two pointers which is pointing to head of each Linked_List.
         Then we will make these pointers run through both the Linked Lists n + m length.
         By doing so, we will hit an intersection point.
 

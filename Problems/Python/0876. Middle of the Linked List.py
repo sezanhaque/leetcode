@@ -6,7 +6,7 @@ class ListNode:
 
 
 class Solution:
-    # Linked List
+    # Linked_List
     def middleNode(self, head: list[ListNode]) -> list[ListNode]:
         res = head
         length = 0
