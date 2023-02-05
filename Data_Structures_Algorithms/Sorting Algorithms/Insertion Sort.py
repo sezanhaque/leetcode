@@ -8,7 +8,6 @@ def insertionSort(arr: list[int]) -> list[int]:
         while j >= 0 and key < arr[j]:
             arr[j + 1] = arr[j]
             j = j - 1
-            count += 1
 
         # Place key at after the element just smaller than it.
         arr[j + 1] = key
@@ -19,7 +18,6 @@ def insertionSort(arr: list[int]) -> list[int]:
         for j in range(i + 1, 0, -1):
             if arr[j] < arr[j - 1]:
                 arr[j], arr[j - 1] = arr[j - 1], arr[j]
-                count += 1
             else:
                 break
 

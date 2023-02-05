@@ -1,37 +1,37 @@
 def mergeSort(array: list[int]):
     if len(array) > 1:
 
-        #  r is the point where the array is divided into two sub-arrays
-        r = len(array) >> 1
-        L = array[:r]
-        M = array[r:]
+        #  mid is the point where the array is divided into two sub-arrays
+        mid = len(array) >> 1
+        left = array[:mid]
+        right = array[mid:]
 
         # Sort the two halves
-        mergeSort(L)
-        mergeSort(M)
+        mergeSort(left)
+        mergeSort(right)
 
         i = j = k = 0
 
-        # Until we reach either end of either L or M, pick larger among
-        # elements L and M and place them in the correct position at A[p..r]
-        while i < len(L) and j < len(M):
-            if L[i] < M[j]:
-                array[k] = L[i]
+        # Until we reach either end of either left or right, pick larger among
+        # elements left and right and place them in the correct position at A[p..mid]
+        while i < len(left) and j < len(right):
+            if left[i] < right[j]:
+                array[k] = left[i]
                 i += 1
             else:
-                array[k] = M[j]
+                array[k] = right[j]
                 j += 1
             k += 1
 
-        # When we run out of elements in either L or M,
-        # pick up the remaining elements and put in A[p..r]
-        while i < len(L):
-            array[k] = L[i]
+        # When we run out of elements in either left or right,
+        # pick up the remaining elements and put in A[p..mid]
+        while i < len(left):
+            array[k] = left[i]
             i += 1
             k += 1
 
-        while j < len(M):
-            array[k] = M[j]
+        while j < len(right):
+            array[k] = right[j]
             j += 1
             k += 1
 
@@ -85,6 +85,6 @@ def merge(arr: list[int], start: int, mid: int, end: int) -> list[int]:
 if __name__ == "__main__":
     data = [6, 5, 12, 10, 9, 1]
 
-    # mergeSort(data)
-    mergeSortRecursion(data, 0, len(data))
+    mergeSort(data)
+    # mergeSortRecursion(data, 0, len(data))
     print(data)

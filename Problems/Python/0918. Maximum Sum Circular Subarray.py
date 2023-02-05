@@ -7,7 +7,7 @@ class Solution:
         minSum = maxSum = nums[0]
 
         for num in nums:
-            # kadane's algorithm to find min subarray sum
+            # kadane's algorithm to find max subarray sum
             currMax = max(num, currMax + num)
             maxSum = max(maxSum, currMax)
 
