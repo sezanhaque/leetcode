@@ -4,8 +4,7 @@ def shuffle(self, nums: list[int], n: int) -> list[int]:
     """
     result = []
     for i in range(0, n):
-        result.append(nums[i])
-        result.append(nums[i + n])
+        result.extend([nums[i], nums[i + n]])
     return result
 
 
