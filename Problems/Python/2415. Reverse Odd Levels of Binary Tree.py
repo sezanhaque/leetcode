@@ -1,13 +1,6 @@
 from typing import Optional
 
-from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree, TreeNode
 
 
 class Solution:
@@ -17,7 +10,7 @@ class Solution:
                 return
 
             # when the level is odd, swap the values
-            if not level & 1:
+            if level & 1:
                 node_1.val, node_2.val = node_2.val, node_1.val
 
             # The key to using dfs is to pass in the left of node1 and right of node2.
@@ -26,7 +19,7 @@ class Solution:
             DFS(node_1.left, node_2.right, level + 1)
             DFS(node_1.right, node_2.left, level + 1)
 
-        DFS(root.left, root.right, 0)
+        DFS(root.left, root.right, 1)
 
         return root
 
