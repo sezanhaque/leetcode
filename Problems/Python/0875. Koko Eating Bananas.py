@@ -1,3 +1,4 @@
+from bisect import bisect_left
 from math import ceil
 
 
@@ -15,8 +16,10 @@ class Solution:
                 left = mid + 1
             else:
                 right = mid
+
         return left
 
 
-print(Solution.minEatingSpeed(0, [3, 6, 7, 11], 8))  # 4
-print(Solution.minEatingSpeed(0, [30, 11, 23, 4, 20], 5))  # 30
+obj = Solution()
+print(obj.minEatingSpeed([3, 6, 7, 11], 8))  # 4
+print(obj.minEatingSpeed([30, 11, 23, 4, 20], 5))  # 30

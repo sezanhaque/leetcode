@@ -4,6 +4,9 @@ from typing import List
 
 class Solution:
     def minimumTime(self, time: List[int], totalTrips: int) -> int:
+        """
+        Binary Search
+        """
         start, end = 1, totalTrips * min(time)
 
         while start < end:
@@ -17,7 +20,8 @@ class Solution:
         return start
 
     def minimumTime(self, time: List[int], totalTrips: int) -> int:
-        return bisect_left(range(1, totalTrips * min(time)), totalTrips, key=lambda trip: sum(trip // t for t in time)) + 1
+        return bisect_left(range(1, totalTrips * min(time)), totalTrips,
+                           key=lambda trip: sum(trip // t for t in time)) + 1
 
 
 obj = Solution()
