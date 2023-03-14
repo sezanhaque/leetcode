@@ -1,16 +1,15 @@
 from math import inf
 
 # Definition for a binary tree node.
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+from typing import Optional
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree, TreeNode
 
 
 class Solution:
-    def maxPathSum(self, root: Optional[TreeNode]) -> int:
+    def __init__(self):
         self.maxPath = -inf
+
+    def maxPathSum(self, root: Optional[TreeNode]) -> int:
         self.helper(root)
         return self.maxPath
 
@@ -30,3 +29,8 @@ class Solution:
 
         # We are returning only current root value with left or right max value
         return root.val + max(left, right)
+
+
+root = [-10, 9, 20, None, None, 15, 7]
+obj = Solution()
+print(obj.maxPathSum(BinaryTree(root).root_node))

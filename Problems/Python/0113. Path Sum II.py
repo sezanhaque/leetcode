@@ -1,12 +1,5 @@
-from typing import Optional, List
-from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree
-
-
-class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
-        self.left = left
-        self.right = right
+from typing import Optional
+from Data_Structures_Algorithms.Tree.BinaryTree import BinaryTree, TreeNode
 
 
 class Solution:
