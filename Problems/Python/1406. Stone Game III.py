@@ -13,7 +13,7 @@ class Solution:
 
         return ["Tie", "Alice", "Bob"][self.cmp(dp[0], 0)]
 
-    def stoneGameIII(self, stoneValue):
+    def stoneGameIII(self, stoneValue: List[int]) -> str:
         n = len(stoneValue)
         dp = [0] * 3
 
